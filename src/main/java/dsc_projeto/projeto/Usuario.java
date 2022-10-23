@@ -4,22 +4,39 @@
  */
 package dsc_projeto.projeto;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorType;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-public class Usuario implements Serializable{
+@Table(name="USUARIOS")
+@Inheritance(strategy = InheritanceType.JOINED) 
+@DiscriminatorColumn(name = "DISC_USUARIO", 
+        discriminatorType = DiscriminatorType.STRING, length = 1)
+public abstract class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
+    @Column(name = "NOME")
     private String nome;
+    @Column(name = "IDADE")
     private Integer idade;
+    @Column(name = "EMAIL")
     private String email;
+    @Column(name = "SENHA")
     private String senha;
+    @Embedded
+    protected Endereco endereco;
 
     public Integer getId() {
         return id;
@@ -60,6 +77,13 @@ public class Usuario implements Serializable{
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
     
 }

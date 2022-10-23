@@ -9,11 +9,11 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
-public class Main {
+public class TesteJPA {
 
     public static void main(String[] args) {
-        Usuario usuario = new Usuario();
-        preencherUsuario(usuario);
+        /*Usuario usuario = new Usuario();
+        preencherUsuario(usuario);*/
         EntityManagerFactory emf = null;
         EntityManager em = null;
         EntityTransaction et = null;
@@ -22,7 +22,7 @@ public class Main {
             em = emf.createEntityManager();
             et = em.getTransaction();
             et.begin();
-            em.persist(usuario);
+            //em.persist(usuario);
             et.commit();
         } catch (Exception ex) {
             if (et != null) {
@@ -38,10 +38,10 @@ public class Main {
         }
     }
 
-    private static void preencherUsuario(Usuario usuario) {
+    /*private static void preencherUsuario(Usuario usuario) {
         usuario.setNome("Ricardo da Silva");
         usuario.setIdade(19);
         usuario.setEmail("ricardosilva123@gmail.com");
         usuario.setSenha("senha1234");
-    }
+    }*/
 }
