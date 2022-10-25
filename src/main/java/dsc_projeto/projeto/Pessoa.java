@@ -1,8 +1,7 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package dsc_projeto.projeto;
+ */ package dsc_projeto.projeto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
@@ -18,11 +17,11 @@ import jakarta.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name="USUARIOS")
+@Table(name="PESSOA")
 @Inheritance(strategy = InheritanceType.JOINED) 
-@DiscriminatorColumn(name = "DISC_USUARIO", 
+@DiscriminatorColumn(name = "DISC_PESSOA", 
         discriminatorType = DiscriminatorType.STRING, length = 1)
-public abstract class Usuario implements Serializable {
+public abstract class Pessoa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -31,12 +30,12 @@ public abstract class Usuario implements Serializable {
     private String nome;
     @Column(name = "IDADE")
     private Integer idade;
-    @Column(name = "EMAIL")
-    private String email;
-    @Column(name = "SENHA")
-    private String senha;
+    @Column(name = "CIDADE")
+    private String cidade;
+    @Column(name = "ESTADO")
+    private String estado;
     @Embedded
-    protected Endereco endereco;
+    protected Contato contato;
 
     public Integer getId() {
         return id;
@@ -62,28 +61,30 @@ public abstract class Usuario implements Serializable {
         this.idade = idade;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCidade() {
+        return cidade;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    public Contato getContato() {
+        return contato;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public void setContato(Contato contato) {
+        this.contato = contato;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
+    
     
 }
