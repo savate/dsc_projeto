@@ -84,7 +84,5 @@ public abstract class Pessoa implements Serializable {
     public void setContato(Contato contato) {
         this.contato = contato;
     }
-
-    
     
 }
