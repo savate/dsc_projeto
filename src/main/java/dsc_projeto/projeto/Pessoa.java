@@ -14,7 +14,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name="PESSOA")
@@ -36,6 +39,10 @@ public abstract class Pessoa implements Serializable {
     private String estado;
     @Embedded
     protected Contato contato;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DT_NASCIMENTO", nullable = true)
+    private Date dataNascimento;
+    
 
     public Integer getId() {
         return id;
@@ -84,5 +91,12 @@ public abstract class Pessoa implements Serializable {
     public void setContato(Contato contato) {
         this.contato = contato;
     }
-    
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
 }
