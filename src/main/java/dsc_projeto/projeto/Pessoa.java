@@ -20,7 +20,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name="PESSOA")
+@Table(name="TB_PESSOA")
 @Inheritance(strategy = InheritanceType.JOINED) 
 @DiscriminatorColumn(name = "DISC_PESSOA", 
         discriminatorType = DiscriminatorType.STRING, length = 1)

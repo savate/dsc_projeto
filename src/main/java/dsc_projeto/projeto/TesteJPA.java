@@ -8,40 +8,67 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TesteJPA {
 
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("dsc_projeto");
+    private static final Logger logger = Logger.getGlobal();
+
     public static void main(String[] args) {
-        /*Usuario usuario = new Usuario();
-        preencherUsuario(usuario);*/
-        EntityManagerFactory emf = null;
+        try {
+            inserirPessoa();
+        } finally {
+            emf.close();
+        }
+        
+    }
+    
+    public static Integer inserirPessoa() {
+        Pessoa aluno = criarAluno();
+        
         EntityManager em = null;
         EntityTransaction et = null;
         try {
-            emf = Persistence.createEntityManagerFactory("dsc_projeto");
             em = emf.createEntityManager();
             et = em.getTransaction();
             et.begin();
-            //em.persist(usuario);
+            em.persist(aluno);
             et.commit();
-        } catch (Exception ex) {
-            if (et != null) {
+        } catch (Exception ex){
+            if (et != null && et.isActive()) {
+                logger.log(Level.SEVERE,
+                        "Cancelando transacao com erro. Mensagem: {0}", ex.getMessage());
                 et.rollback();
+                logger.info("Transacao cancelada.");
             }
         } finally {
             if (em != null) {
                 em.close();
             }
-            if (emf != null) {
-                emf.close();
-            }
         }
+        
+        return aluno.getId();
     }
-
-    /*private static void preencherUsuario(Usuario usuario) {
-        usuario.setNome("Ricardo da Silva");
-        usuario.setIdade(19);
-        usuario.setEmail("ricardosilva123@gmail.com");
-        usuario.setSenha("senha1234");
-    }*/
+    
+    public static Aluno criarAluno() {
+        Aluno aluno = new Aluno();
+        aluno.setNome("Juvenaldo");
+        aluno.setIdade(20);
+        aluno.setEstado("PE");
+        aluno.setCidade("Recife");
+        aluno.setCurso("TADS");
+        aluno.setPeriodo("4 periodo");
+        criarContato(aluno);
+        return aluno;
+    }
+    
+    public static void criarContato(Pessoa pessoa) {
+        Contato contato = new Contato();
+        contato.setEmail("juvenaldo1234@gmail.com");
+        contato.setTelefone("81 9999-9999");
+        contato.setCaixaPostal("70981");
+        pessoa.setContato(contato);
+    }
 }
