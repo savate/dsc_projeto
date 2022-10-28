@@ -54,12 +54,16 @@ public class TesteJPA {
     
     public static Aluno criarAluno() {
         Aluno aluno = new Aluno();
-        aluno.setNome("Juvenaldo");
+        aluno.setNome("Carlitos");
         aluno.setIdade(20);
         aluno.setEstado("PE");
         aluno.setCidade("Recife");
         aluno.setCurso("TADS");
-        aluno.setPeriodo("4 periodo");
+        aluno.setPeriodo("3 periodo");
+        aluno.setMatricula("20222y3-9999");
+        aluno.addDisciplinas("Introdução a programação");
+        aluno.addDisciplinas("Banco de Dados I");
+        aluno.addDisciplinas("Algoritmos");
         criarContato(aluno);
         return aluno;
     }

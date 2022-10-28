@@ -42,8 +42,8 @@ public abstract class Pessoa implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "DT_NASCIMENTO", nullable = true)
     private Date dataNascimento;
-    
 
+    
     public Integer getId() {
         return id;
     }
@@ -67,7 +67,7 @@ public abstract class Pessoa implements Serializable {
     public void setIdade(Integer idade) {
         this.idade = idade;
     }
-
+    
     public String getCidade() {
         return cidade;
     }
@@ -99,4 +99,22 @@ public abstract class Pessoa implements Serializable {
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
+    
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Pessoa)) {
+            return false;
+        }
+        Pessoa other = (Pessoa) object;
+
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
+    }
+
 }
