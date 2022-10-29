@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,6 +28,7 @@ public class TesteJPA {
     
     public static Integer inserirPessoa() {
         Pessoa aluno = criarAluno();
+        Pessoa professor = criarProfessor();
         
         EntityManager em = null;
         EntityTransaction et = null;
@@ -35,6 +37,7 @@ public class TesteJPA {
             et = em.getTransaction();
             et.begin();
             em.persist(aluno);
+            em.persist(professor);
             et.commit();
         } catch (Exception ex){
             if (et != null && et.isActive()) {
@@ -61,18 +64,50 @@ public class TesteJPA {
         aluno.setCurso("TADS");
         aluno.setPeriodo("3 periodo");
         aluno.setMatricula("20222y3-9999");
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, 2002);
+        c.set(Calendar.MONTH, Calendar.MAY);
+        c.set(Calendar.DAY_OF_MONTH, 11);
+        aluno.setDataNascimento(c.getTime());
         aluno.addDisciplinas("Introdução a programação");
         aluno.addDisciplinas("Banco de Dados I");
         aluno.addDisciplinas("Algoritmos");
-        criarContato(aluno);
+        criarContatoAluno(aluno);
         return aluno;
     }
     
-    public static void criarContato(Pessoa pessoa) {
+    public static Professor criarProfessor() {
+        Professor professor = new Professor();
+        professor.setTitulo("Doutor");
+        professor.setNome("Alvaro da Silva");
+        professor.setEspecializacao("Doutorado em Ciencia da Computação");
+        professor.setIdade(50);
+        professor.setEstado("PE");
+        professor.setCidade("Camaragibe");
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, 1972);
+        c.set(Calendar.MONTH, Calendar.SEPTEMBER);
+        c.set(Calendar.DAY_OF_MONTH, 21);
+        professor.setDataNascimento(c.getTime());
+        professor.addDisciplinasEnsinadas("Banco de Dados I");
+        professor.addDisciplinasEnsinadas("Banco de Dados II");
+        criarContatoProfessor(professor);
+        return professor;
+    }
+    
+    public static void criarContatoAluno (Pessoa pessoa) {
         Contato contato = new Contato();
         contato.setEmail("juvenaldo1234@gmail.com");
         contato.setTelefone("81 9999-9999");
         contato.setCaixaPostal("70981");
-        pessoa.setContato(contato);
+        pessoa.setContato(contato);     
+    }
+    
+    public static void criarContatoProfessor (Pessoa pessoa) {
+        Contato contato = new Contato();
+        contato.setEmail("dralvaro@gmail.com");
+        contato.setTelefone("81 9999-8888");
+        contato.setCaixaPostal("70001");
+        pessoa.setContato(contato); 
     }
 }
