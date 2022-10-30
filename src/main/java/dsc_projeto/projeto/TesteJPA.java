@@ -8,7 +8,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -92,6 +94,8 @@ public class TesteJPA {
         professor.addDisciplinasEnsinadas("Banco de Dados I");
         professor.addDisciplinasEnsinadas("Banco de Dados II");
         criarContatoProfessor(professor);
+        List<Turma> turmas = criarTurma(professor);
+        professor.setTurmas(turmas);
         return professor;
     }
     
@@ -109,5 +113,26 @@ public class TesteJPA {
         contato.setTelefone("81 9999-8888");
         contato.setCaixaPostal("70001");
         pessoa.setContato(contato); 
+    }
+    
+    public static List<Turma> criarTurma(Professor professor) {
+        Turma turma1 = new Turma();
+        turma1.setNomeTurma("Turma Banco de dados I");
+        turma1.setCurso("TADS");
+        turma1.setPeriodo("3 Periodo");
+        turma1.setCapacidade(40);
+        turma1.setProfessor(professor);
+        
+        Turma turma2 = new Turma();
+        turma2.setNomeTurma("Turma Algoritmos");
+        turma2.setCurso("TADS");
+        turma2.setPeriodo("3 Periodo");
+        turma2.setCapacidade(35);
+        turma2.setProfessor(professor);
+        
+        List<Turma> turmas = new ArrayList<>();
+        turmas.add(turma1);
+        turmas.add(turma2);
+        return turmas;
     }
 }
