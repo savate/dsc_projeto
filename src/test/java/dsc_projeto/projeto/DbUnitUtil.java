@@ -16,10 +16,7 @@ import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 
-/**
- *
- * @author MASC
- */
+
 public class DbUnitUtil {
 
     private static final String XML_FILE = "/dbunit/dataset.xml";
