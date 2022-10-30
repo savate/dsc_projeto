@@ -22,10 +22,26 @@ public class TesteJPA {
     public static void main(String[] args) {
         try {
             inserirPessoa();
+            consultarPessoa(2);
         } finally {
             emf.close();
         }
         
+    }
+    
+    private static void consultarPessoa(Integer id) {
+        EntityManager em = null;
+        try {
+            em = emf.createEntityManager();
+            System.out.println("Consultando pessoa na base....");
+            Pessoa pessoa = em.find(Pessoa.class, id);
+            System.out.println("Imprimindo pessoa...");
+            System.out.println(pessoa.toString());
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
     }
     
     public static Integer inserirPessoa() {
@@ -56,6 +72,8 @@ public class TesteJPA {
         
         return aluno.getId();
     }
+    
+    
     
     public static Aluno criarAluno() {
         Aluno aluno = new Aluno();
