@@ -3,9 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */ package dsc_projeto.projeto;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,11 +15,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="TB_PESSOA")
@@ -31,19 +35,16 @@ public abstract class Pessoa implements Serializable {
 
     @Column(name = "NOME")
     private String nome;
-    @Column(name = "IDADE")
-    private Integer idade;
     @Column(name = "CIDADE")
     private String cidade;
     @Column(name = "ESTADO")
     private String estado;
-    @Embedded
-    protected Contato contato;
     @Temporal(TemporalType.DATE)
     @Column(name = "DT_NASCIMENTO", nullable = true)
     private Date dataNascimento;
+    @Embedded
+    protected Contato contato;
 
-    
     public Integer getId() {
         return id;
     }
@@ -60,14 +61,6 @@ public abstract class Pessoa implements Serializable {
         this.nome = nome;
     }
 
-    public Integer getIdade() {
-        return idade;
-    }
-
-    public void setIdade(Integer idade) {
-        this.idade = idade;
-    }
-    
     public String getCidade() {
         return cidade;
     }
@@ -83,14 +76,6 @@ public abstract class Pessoa implements Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-    public Contato getContato() {
-        return contato;
-    }
-
-    public void setContato(Contato contato) {
-        this.contato = contato;
-    }
 
     public Date getDataNascimento() {
         return dataNascimento;
@@ -98,6 +83,14 @@ public abstract class Pessoa implements Serializable {
 
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public Contato getContato() {
+        return contato;
+    }
+
+    public void setContato(Contato contato) {
+        this.contato = contato;
     }
     
     @Override

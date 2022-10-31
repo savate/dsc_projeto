@@ -8,9 +8,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,8 +21,8 @@ public class TesteJPA {
 
     public static void main(String[] args) {
         try {
-            inserirPessoa();
-            consultarPessoa(2);
+            //Integer id = inserirPessoa();
+            //consultarPessoa(id);
         } finally {
             emf.close();
         }
@@ -45,8 +45,9 @@ public class TesteJPA {
     }
     
     public static Integer inserirPessoa() {
-        Pessoa aluno = criarAluno();
         Pessoa professor = criarProfessor();
+        Disciplina disciplina = criarDisciplina((Professor) professor);
+        Pessoa aluno = criarAluno(disciplina);
         
         EntityManager em = null;
         EntityTransaction et = null;
@@ -75,10 +76,9 @@ public class TesteJPA {
     
     
     
-    public static Aluno criarAluno() {
+    public static Aluno criarAluno(Disciplina disciplina) {
         Aluno aluno = new Aluno();
-        aluno.setNome("Carlitos");
-        aluno.setIdade(20);
+        aluno.setNome("Juvenaldo");
         aluno.setEstado("PE");
         aluno.setCidade("Recife");
         aluno.setCurso("TADS");
@@ -89,9 +89,7 @@ public class TesteJPA {
         c.set(Calendar.MONTH, Calendar.MAY);
         c.set(Calendar.DAY_OF_MONTH, 11);
         aluno.setDataNascimento(c.getTime());
-        aluno.addDisciplinas("Introdução a programação");
-        aluno.addDisciplinas("Banco de Dados I");
-        aluno.addDisciplinas("Algoritmos");
+        aluno.setDisciplinaRep(disciplina);
         criarContatoAluno(aluno);
         return aluno;
     }
@@ -100,8 +98,6 @@ public class TesteJPA {
         Professor professor = new Professor();
         professor.setTitulo("Doutor");
         professor.setNome("Alvaro da Silva");
-        professor.setEspecializacao("Doutorado em Ciencia da Computação");
-        professor.setIdade(50);
         professor.setEstado("PE");
         professor.setCidade("Camaragibe");
         Calendar c = Calendar.getInstance();
@@ -109,11 +105,12 @@ public class TesteJPA {
         c.set(Calendar.MONTH, Calendar.SEPTEMBER);
         c.set(Calendar.DAY_OF_MONTH, 21);
         professor.setDataNascimento(c.getTime());
-        professor.addDisciplinasEnsinadas("Banco de Dados I");
-        professor.addDisciplinasEnsinadas("Banco de Dados II");
         criarContatoProfessor(professor);
-        List<Turma> turmas = criarTurma(professor);
-        professor.setTurmas(turmas);
+        Disciplina disciplina = criarDisciplina(professor);
+        Collection<Disciplina> disciplinas = new HashSet<>();
+        disciplinas.add(disciplina);
+        professor.setDisciplinas(disciplinas);
+        criarCursos(professor);
         return professor;
     }
     
@@ -133,24 +130,21 @@ public class TesteJPA {
         pessoa.setContato(contato); 
     }
     
-    public static List<Turma> criarTurma(Professor professor) {
-        Turma turma1 = new Turma();
-        turma1.setNomeTurma("Turma Banco de dados I");
-        turma1.setCurso("TADS");
-        turma1.setPeriodo("3 Periodo");
-        turma1.setCapacidade(40);
-        turma1.setProfessor(professor);
-        
-        Turma turma2 = new Turma();
-        turma2.setNomeTurma("Turma Algoritmos");
-        turma2.setCurso("TADS");
-        turma2.setPeriodo("3 Periodo");
-        turma2.setCapacidade(35);
-        turma2.setProfessor(professor);
-        
-        List<Turma> turmas = new ArrayList<>();
-        turmas.add(turma1);
-        turmas.add(turma2);
-        return turmas;
+    public static Disciplina criarDisciplina(Professor professor) {
+        Disciplina disciplina = new Disciplina();
+        disciplina.setNomeDisciplina("Turma Banco de dados I");
+        disciplina.setCurso("TADS");
+        disciplina.setPeriodo("3 Periodo");
+        disciplina.setCapacidade(40);
+        disciplina.setProfessor(professor);
+        return disciplina;
+    }
+    
+    public static void criarCursos(Professor professor) {
+        Collection<String> cursos = new HashSet<>();
+        cursos.add("TADS - IFPE");
+        cursos.add("Mestre - UFPE");
+        cursos.add("Doutor - MIT");
+        professor.setCursos(cursos);
     }
 }

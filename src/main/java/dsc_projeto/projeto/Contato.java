@@ -6,11 +6,11 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class Contato implements Serializable {
-    @Column(name = "EMAIL", length = 150, nullable = true)
+    @Column(name = "EMAIL", length = 150, nullable = false)
     private String email;
-    @Column(name = "TELEFONE", length = 150, nullable = true)
+    @Column(name = "TELEFONE", length = 150, nullable = false)
     private String telefone;
-    @Column(name = "CAIXA_POSTAL", length = 5, nullable = true)
+    @Column(name = "CAIXA_POSTAL", length = 50, nullable = true)
     private String caixaPostal;
 
     public String getEmail() {
@@ -28,7 +28,7 @@ public class Contato implements Serializable {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-
+    
     public String getCaixaPostal() {
         return caixaPostal;
     }

@@ -11,27 +11,34 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
-@Table(name = "TB_TURMA")
-public class Turma implements Serializable {
+@Table(name = "TB_DISCIPLINA")
+public class Disciplina implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
+    @JoinColumn(name = "ID_PROFESSOR", referencedColumnName = "ID")
     private Professor professor;
-    @Column(name = "NOME_TURMA")
-    private String nomeTurma;
+    @Column(name = "NOME_DISCIPLINA")
+    private String nomeDisciplina;
     @Column(name = "CAPACIDADE")
     private Integer capacidade;
     @Column(name = "PERIODO")
     private String periodo;
-    @Column(name = "Curso")
+    @Column(name = "CURSO")
     private String curso;
+    @OneToOne(mappedBy = "disciplinaRep", optional = true)
+    Aluno representante;
+    @ManyToMany(mappedBy="disciplinas")
+    private Collection<Aluno> alunos;
 
     public Integer getId() {
         return id;
@@ -49,12 +56,12 @@ public class Turma implements Serializable {
         this.professor = professor;
     }
 
-    public String getNomeTurma() {
-        return nomeTurma;
+    public String getNomeDisciplina() {
+        return nomeDisciplina;
     }
 
-    public void setNomeTurma(String nomeTurma) {
-        this.nomeTurma = nomeTurma;
+    public void setNomeDisciplina(String nomeDisciplina) {
+        this.nomeDisciplina = nomeDisciplina;
     }
 
     public Integer getCapacidade() {
@@ -71,7 +78,7 @@ public class Turma implements Serializable {
 
     public void setPeriodo(String periodo) {
         this.periodo = periodo;
-    } 
+    }
 
     public String getCurso() {
         return curso;
@@ -80,7 +87,43 @@ public class Turma implements Serializable {
     public void setCurso(String curso) {
         this.curso = curso;
     }
+
+    public Aluno getRepresentante() {
+        return representante;
+    }
+
+    public void setRepresentante(Aluno representante) {
+        this.representante = representante;
+    }
+
+    public Collection<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(Collection<Aluno> alunos) {
+        this.alunos = alunos;
+    }
     
-    
-    
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Disciplina)) {
+            return false;
+        }
+
+        Disciplina other = (Disciplina) object;
+
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
+    }
+
+    @Override
+    public String toString() {
+        return "exemplo.jpa.Disciplina[ id=" + id + " ]";
+    }
 }

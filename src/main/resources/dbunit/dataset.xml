@@ -1,4 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
+    <TB_PESSOA DISC_PESSOA = "P" NOME = "Renato"
+                CIDADE = "Recife" ESTADO = "PE" DT_NASCIMENTO = "1985-12-21" EMAIL = "renato@email.com" TELEFONE = "9999-9999"
+                CAIXA_POSTAL = "Recife01"/>
+    <TB_PESSOA DISC_PESSOA = "P" NOME = "Maria" 
+                CIDADE = "Olinda" ESTADO = "PE" DT_NASCIMENTO = "1995-09-01" EMAIL = "maria@email.com" TELEFONE = "8888-8888"
+                CAIXA_POSTAL = "Olinda01" />
+    <TB_PESSOA DISC_PESSOA = "P" NOME = "Luana" 
+                CIDADE = "Carpina" ESTADO = "PE" DT_NASCIMENTO = "1989-11-11" EMAIL = "luana@email.com" TELEFONE = "7777-7777"
+                CAIXA_POSTAL = "Carpina01"/>
+    <TB_PESSOA DISC_PESSOA = "P" NOME = "João" 
+                CIDADE = "Recife" ESTADO = "PE" DT_NASCIMENTO = "1975-10-16" EMAIL = "joao@email.com" TELEFONE = "6666-6666"
+                CAIXA_POSTAL = "Recife02"/>
+    
+    <TB_PROFESSOR ID_PESSOA="1" TITULO = "Doutor"/>
+    <TB_PROFESSOR ID_PESSOA="2" TITULO = "Mestre"/>
+    <TB_PROFESSOR ID_PESSOA="3" TITULO = "Doutora"/>
+    <TB_PROFESSOR ID_PESSOA="4" TITULO = "Mestre"/>
+    
+    <TB_CURSO ID_PROFESSOR="1" NOME_CURSO="IFPE-TADS"/>
+    <TB_CURSO ID_PROFESSOR="1" NOME_CURSO="UFPE-MESTRE"/>
+    <TB_CURSO ID_PROFESSOR="1" NOME_CURSO="MIT_DOUTOR"/>
+    <TB_CURSO ID_PROFESSOR="2" NOME_CURSO="IFPE-TADS"/>
+    <TB_CURSO ID_PROFESSOR="3" NOME_CURSO="IFPE-TADS"/>
+    <TB_CURSO ID_PROFESSOR="3" NOME_CURSO="MIT_DOUTOR"/>
+    <TB_CURSO ID_PROFESSOR="4" NOME_CURSO="IFPE-TADS"/>
+    
+    <TB_DISCIPLINA ID_PROFESSOR="1" NOME_DISCIPLINA="Banco de Dados" CAPACIDADE="40" PERIODO="3 Periodo" CURSO="TADS" />
+    <TB_DISCIPLINA ID_PROFESSOR="2" NOME_DISCIPLINA="Web 1" CAPACIDADE="40" PERIODO="2 Periodo" CURSO="TADS" />
+    <TB_DISCIPLINA ID_PROFESSOR="3" NOME_DISCIPLINA="Redes" CAPACIDADE="40" PERIODO="1 Periodo" CURSO="TADS" />
+    <TB_DISCIPLINA ID_PROFESSOR="4" NOME_DISCIPLINA="Design Front" CAPACIDADE="40" PERIODO="4 Periodo" CURSO="TADS" />
+    
+    <TB_PESSOA DISC_PESSOA = "A" NOME = "Junior"
+                CIDADE = "Recife" ESTADO = "PE" DT_NASCIMENTO = "2000-12-21" EMAIL = "junior@email.com" TELEFONE = "1111-1111"
+                CAIXA_POSTAL = "Recife01"/>
+    <TB_PESSOA DISC_PESSOA = "A" NOME = "Itala" 
+                CIDADE = "Olinda" ESTADO = "PE" DT_NASCIMENTO = "2001-09-01" EMAIL = "itala@email.com" TELEFONE = "2222-2222"
+                CAIXA_POSTAL = "Olinda01" />
+    <TB_PESSOA DISC_PESSOA = "A" NOME = "Enzo" 
+                CIDADE = "Recife" ESTADO = "PE" DT_NASCIMENTO = "1992-11-11" EMAIL = "enzo@email.com" TELEFONE = "3333-3333"
+                CAIXA_POSTAL = "Carpina01"/>
+    <TB_PESSOA DISC_PESSOA = "A" NOME = "Gilmara" 
+                CIDADE = "Recife" ESTADO = "PE" DT_NASCIMENTO = "1996-10-16" EMAIL = "gilmara@email.com" TELEFONE = "4444-4444"
+                CAIXA_POSTAL = "Recife02"/>
+    
+    <TB_ALUNO ID_PESSOA="5" CURSO = "TADS" PERIODO="2" MATRICULA="2021.2" ID_DISCIPLINA="1"/>
+    <TB_ALUNO ID_PESSOA="6" CURSO = "TADS" PERIODO="1" MATRICULA="2022.1"/>
+    <TB_ALUNO ID_PESSOA="7" CURSO = "TADS" PERIODO="3" MATRICULA="2019.2"/>
+    <TB_ALUNO ID_PESSOA="8" CURSO = "TADS" PERIODO="4" MATRICULA="2019.1" ID_DISCIPLINA="2"/>
+    
+    <TB_ALUNOS_DISCIPLINAS ID_ALUNO="5" ID_DISCIPLINA = "1"/>
+    <TB_ALUNOS_DISCIPLINAS ID_ALUNO="6" ID_DISCIPLINA = "1"/>
+    <TB_ALUNOS_DISCIPLINAS ID_ALUNO="7" ID_DISCIPLINA = "2"/>
+    <TB_ALUNOS_DISCIPLINAS ID_ALUNO="7" ID_DISCIPLINA = "3"/>
+    <TB_ALUNOS_DISCIPLINAS ID_ALUNO="8" ID_DISCIPLINA = "2"/>
+    <TB_ALUNOS_DISCIPLINAS ID_ALUNO="8" ID_DISCIPLINA = "4"/>
+    
+    
     
 </dataset>

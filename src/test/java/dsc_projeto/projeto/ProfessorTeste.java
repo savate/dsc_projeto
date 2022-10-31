@@ -6,6 +6,8 @@ package dsc_projeto.projeto;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -15,9 +17,7 @@ public class ProfessorTeste extends Teste{
     public void persistirProfessor() {
         Professor professor = new Professor();
         professor.setNome("Professor dos Santos");
-        professor.setIdade(45);
         professor.setTitulo("Mestre");
-        professor.setEspecializacao("Criptografia");
         professor.setEstado("PE");
         professor.setCidade("Jaboatão");
         Calendar c = Calendar.getInstance();
@@ -30,42 +30,53 @@ public class ProfessorTeste extends Teste{
         contato.setCaixaPostal("10141");
         professor.setContato(contato);
         
-        Turma turma = new Turma();
-        turma.setCurso("CC");
-        turma.setNomeTurma("Criptografia em sites");
-        turma.setPeriodo("5 Periodo");
-        turma.setCapacidade(40);
-        turma.setProfessor(professor);
+        Disciplina disciplina = new Disciplina();
+        disciplina.setCurso("CC");
+        disciplina.setNomeDisciplina("Criptografia em sites");
+        disciplina.setPeriodo("5 Periodo");
+        disciplina.setCapacidade(40);
+        disciplina.setProfessor(professor);
+        Collection<Disciplina> disciplinas = new HashSet<>();
+        disciplinas.add(disciplina);  
+        professor.setDisciplinas(disciplinas);
         
-        List<Turma> turmas = new ArrayList<>();
-        turmas.add(turma);
-        
-        professor.setTurmas(turmas);
+        Collection<String> cursos = new HashSet<>();
+        cursos.add("Pós-Ciencia de Dados");
+        cursos.add("Mestrado-MIT");
+        professor.setCursos(cursos);
         
         em.persist(professor);
         em.flush();
         
         assertNotNull(professor.getId());
-        assertNotNull(turma.getId());
+        assertNotNull(disciplina.getId());
     }
     
     @Test
     public void consultarProfessor() {
         Professor professor = em.find(Professor.class, 2);
         assertNotNull(professor);
-        assertEquals("Alvaro da Silva", professor.getNome());
+        assertEquals("Maria", professor.getNome());
         assertEquals("PE", professor.getEstado());
-        assertEquals("Camaragibe", professor.getCidade());
+        assertEquals("Olinda", professor.getCidade());
         Calendar c = Calendar.getInstance();
-        c.set(1972, Calendar.SEPTEMBER, 21, 0, 0, 0);
+        c.set(1995, Calendar.SEPTEMBER, 01, 0, 0, 0);
         assertEquals(c.getTime().toString(), professor.getDataNascimento().toString());
         
         Contato contato = professor.getContato();
         assertNotNull(contato);
-        assertEquals("dralvaro@gmail.com", contato.getEmail());
-        assertEquals("81 9999-8888", contato.getTelefone());
-        assertEquals("70001", contato.getCaixaPostal());
+        assertEquals("maria@email.com", contato.getEmail());
+        assertEquals("8888-8888", contato.getTelefone());
+        assertEquals("Olinda01", contato.getCaixaPostal());
+        
+        Collection<String> cursos = professor.getCursos();
+        assertEquals(1, cursos.size());
+        assertEquals("IFPE-TADS", cursos.iterator().next());
        
+        Collection<Disciplina> disciplinas = professor.getDisciplinas();
+        assertEquals(1, disciplinas.size());
+        assertEquals("Web 1", disciplinas.iterator().next().getNomeDisciplina());
+        assertEquals(2, disciplinas.iterator().next().getAlunos().size());
         
     }
 }

@@ -1,2 +1,6 @@
-dsc_projeto\projeto\Main.class
-dsc_projeto\projeto\Usuario.class
+dsc_projeto\projeto\Disciplina.class
+dsc_projeto\projeto\Contato.class
+dsc_projeto\projeto\Professor.class
+dsc_projeto\projeto\TesteJPA.class
+dsc_projeto\projeto\Pessoa.class
+dsc_projeto\projeto\Aluno.class

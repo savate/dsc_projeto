@@ -21,26 +21,15 @@ import java.util.List;
 @DiscriminatorValue(value = "P")
 @PrimaryKeyJoinColumn(name="ID_PESSOA", referencedColumnName = "ID")
 public class Professor extends Pessoa implements Serializable {
-   @Column(name = "ESPECIALIZACAO")
-   private String especializacao;
-   @Column(name = "TITULO")
-   private String titulo;
-   @ElementCollection
-   @CollectionTable(name = "TB_DISC_PROFESSOR",
-           joinColumns = @JoinColumn(name = "ID_PESSOA", nullable = false))
-   @Column(name = "PROF_DISCIPLINAS", nullable = false, length = 50)
-   private Collection<String> disciplinasEnsinadas;
-   @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY,
-           cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Turma> turmas;
-   
-    public String getEspecializacao() {
-        return especializacao;
-    }
-
-    public void setEspecializacao(String especializacao) {
-        this.especializacao = especializacao;
-    }
+    @Column(name = "TITULO")
+    private String titulo;
+    @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<Disciplina> disciplinas;
+    @ElementCollection
+    @CollectionTable(name = "TB_CURSO",
+            joinColumns = @JoinColumn(name = "ID_PROFESSOR"))
+    @Column(name = "NOME_CURSO")
+    protected Collection<String> cursos;
 
     public String getTitulo() {
         return titulo;
@@ -49,24 +38,29 @@ public class Professor extends Pessoa implements Serializable {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-   
-    public Collection<String> getDisciplinasEnsinadas() {
-        return disciplinasEnsinadas;
-    }
-   
-    public void addDisciplinasEnsinadas(String disciplina) {
-        if (disciplinasEnsinadas == null) {
-            disciplinasEnsinadas = new HashSet<>();
-        }
-        disciplinasEnsinadas.add(disciplina);
+
+    public Collection<Disciplina> getDisciplinas() {
+        return disciplinas;
     }
 
-    public List<Turma> getTurmas() {
-        return turmas;
+    public void setDisciplinas(Collection<Disciplina> disciplinas) {
+        this.disciplinas = disciplinas;
+    }
+    
+    public Collection<String> getCursos() {
+        return cursos;
     }
 
-    public void setTurmas(List<Turma> turmas) {
-        this.turmas = turmas;
+    public void setCursos(Collection<String> cursos) {
+        this.cursos = cursos;
+    }
+
+    public Contato getContato() {
+        return contato;
+    }
+
+    public void setContato(Contato contato) {
+        this.contato = contato;
     }
 
 }
