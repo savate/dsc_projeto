@@ -33,12 +33,13 @@ public class Disciplina implements Serializable {
     private Integer capacidade;
     @Column(name = "PERIODO")
     private String periodo;
-    @Column(name = "CURSO")
-    private String curso;
     @OneToOne(mappedBy = "disciplinaRep", optional = true)
     Aluno representante;
     @ManyToMany(mappedBy="disciplinas")
     private Collection<Aluno> alunos;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "ID_CURSO", referencedColumnName = "ID")
+    private Curso curso;
 
     public Integer getId() {
         return id;
@@ -80,14 +81,6 @@ public class Disciplina implements Serializable {
         this.periodo = periodo;
     }
 
-    public String getCurso() {
-        return curso;
-    }
-
-    public void setCurso(String curso) {
-        this.curso = curso;
-    }
-
     public Aluno getRepresentante() {
         return representante;
     }
@@ -102,6 +95,14 @@ public class Disciplina implements Serializable {
 
     public void setAlunos(Collection<Aluno> alunos) {
         this.alunos = alunos;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
     
     @Override

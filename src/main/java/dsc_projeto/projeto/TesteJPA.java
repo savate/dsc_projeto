@@ -21,7 +21,7 @@ public class TesteJPA {
 
     public static void main(String[] args) {
         try {
-            //Integer id = inserirPessoa();
+            Integer id = inserirPessoa();
             //consultarPessoa(id);
         } finally {
             emf.close();
@@ -81,7 +81,7 @@ public class TesteJPA {
         aluno.setNome("Juvenaldo");
         aluno.setEstado("PE");
         aluno.setCidade("Recife");
-        aluno.setCurso("TADS");
+        //aluno.setCurso("TADS");
         aluno.setPeriodo("3 periodo");
         aluno.setMatricula("20222y3-9999");
         Calendar c = Calendar.getInstance();
@@ -96,7 +96,7 @@ public class TesteJPA {
     
     public static Professor criarProfessor() {
         Professor professor = new Professor();
-        professor.setTitulo("Doutor");
+        //professor.setTitulo("Doutor");
         professor.setNome("Alvaro da Silva");
         professor.setEstado("PE");
         professor.setCidade("Camaragibe");
@@ -110,7 +110,7 @@ public class TesteJPA {
         Collection<Disciplina> disciplinas = new HashSet<>();
         disciplinas.add(disciplina);
         professor.setDisciplinas(disciplinas);
-        criarCursos(professor);
+        //criarCursos(professor);
         return professor;
     }
     
@@ -133,18 +133,18 @@ public class TesteJPA {
     public static Disciplina criarDisciplina(Professor professor) {
         Disciplina disciplina = new Disciplina();
         disciplina.setNomeDisciplina("Turma Banco de dados I");
-        disciplina.setCurso("TADS");
+        //disciplina.setCurso("TADS");
         disciplina.setPeriodo("3 Periodo");
         disciplina.setCapacidade(40);
         disciplina.setProfessor(professor);
         return disciplina;
     }
     
-    public static void criarCursos(Professor professor) {
+    /*public static void criarCursos(Professor professor) {
         Collection<String> cursos = new HashSet<>();
         cursos.add("TADS - IFPE");
         cursos.add("Mestre - UFPE");
         cursos.add("Doutor - MIT");
         professor.setCursos(cursos);
-    }
+    }*/
 }

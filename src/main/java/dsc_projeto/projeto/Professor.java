@@ -1,5 +1,6 @@
 package dsc_projeto.projeto;
 
+import dsc_projeto.projeto.tipos.TiposTitulo;
 import java.io.Serializable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
@@ -9,12 +10,11 @@ import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
 
 @Entity
 @Table(name="TB_PROFESSOR") 
@@ -22,20 +22,23 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name="ID_PESSOA", referencedColumnName = "ID")
 public class Professor extends Pessoa implements Serializable {
     @Column(name = "TITULO")
-    private String titulo;
+    private TiposTitulo titulo;
     @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Disciplina> disciplinas;
     @ElementCollection
-    @CollectionTable(name = "TB_CURSO",
+    @CollectionTable(name = "TB_ESPECIALIZACAO",
             joinColumns = @JoinColumn(name = "ID_PROFESSOR"))
-    @Column(name = "NOME_CURSO")
-    protected Collection<String> cursos;
+    @Column(name = "NOME_ESPECIALIZACAO")
+    protected Collection<String> especializacoes;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "ID_CURSO", referencedColumnName = "ID")
+    private Curso curso;
 
-    public String getTitulo() {
+    public TiposTitulo getTitulo() {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
+    public void setTitulo(TiposTitulo titulo) {
         this.titulo = titulo;
     }
 
@@ -46,19 +49,29 @@ public class Professor extends Pessoa implements Serializable {
     public void setDisciplinas(Collection<Disciplina> disciplinas) {
         this.disciplinas = disciplinas;
     }
+
+    public Collection<String> getEspecializacoes() {
+        return especializacoes;
+    }
+
+    public void setEspecializacoes(Collection<String> especializacoes) {
+        this.especializacoes = especializacoes;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
     
-    public Collection<String> getCursos() {
-        return cursos;
-    }
-
-    public void setCursos(Collection<String> cursos) {
-        this.cursos = cursos;
-    }
-
+    @Override
     public Contato getContato() {
         return contato;
     }
 
+    @Override
     public void setContato(Contato contato) {
         this.contato = contato;
     }

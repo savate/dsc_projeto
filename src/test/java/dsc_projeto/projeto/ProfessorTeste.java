@@ -4,11 +4,10 @@
  */
 package dsc_projeto.projeto;
 
-import java.util.ArrayList;
+import dsc_projeto.projeto.tipos.TiposTitulo;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -17,7 +16,7 @@ public class ProfessorTeste extends Teste{
     public void persistirProfessor() {
         Professor professor = new Professor();
         professor.setNome("Professor dos Santos");
-        professor.setTitulo("Mestre");
+        professor.setTitulo(TiposTitulo.DOUTOR);
         professor.setEstado("PE");
         professor.setCidade("Jaboatão");
         Calendar c = Calendar.getInstance();
@@ -31,7 +30,6 @@ public class ProfessorTeste extends Teste{
         professor.setContato(contato);
         
         Disciplina disciplina = new Disciplina();
-        disciplina.setCurso("CC");
         disciplina.setNomeDisciplina("Criptografia em sites");
         disciplina.setPeriodo("5 Periodo");
         disciplina.setCapacidade(40);
@@ -40,10 +38,13 @@ public class ProfessorTeste extends Teste{
         disciplinas.add(disciplina);  
         professor.setDisciplinas(disciplinas);
         
-        Collection<String> cursos = new HashSet<>();
-        cursos.add("Pós-Ciencia de Dados");
-        cursos.add("Mestrado-MIT");
-        professor.setCursos(cursos);
+        Curso curso = em.find(Curso.class, 1);
+        professor.setCurso(curso);
+        
+        Collection<String> especializacoes = new HashSet<>();
+        especializacoes.add("BlockChain e Criptografia Digital");
+        especializacoes.add("Especialização de criptografia aplicada");
+        professor.setEspecializacoes(especializacoes);
         
         em.persist(professor);
         em.flush();
@@ -59,6 +60,8 @@ public class ProfessorTeste extends Teste{
         assertEquals("Maria", professor.getNome());
         assertEquals("PE", professor.getEstado());
         assertEquals("Olinda", professor.getCidade());
+        assertEquals(TiposTitulo.MESTRE, professor.getTitulo());
+        assertEquals("Programação Web Google", professor.getEspecializacoes().iterator().next());
         Calendar c = Calendar.getInstance();
         c.set(1995, Calendar.SEPTEMBER, 01, 0, 0, 0);
         assertEquals(c.getTime().toString(), professor.getDataNascimento().toString());
@@ -69,9 +72,8 @@ public class ProfessorTeste extends Teste{
         assertEquals("8888-8888", contato.getTelefone());
         assertEquals("Olinda01", contato.getCaixaPostal());
         
-        Collection<String> cursos = professor.getCursos();
-        assertEquals(1, cursos.size());
-        assertEquals("IFPE-TADS", cursos.iterator().next());
+        Curso curso = professor.getCurso();
+        assertEquals("TADS", curso.getNomeCurso());
        
         Collection<Disciplina> disciplinas = professor.getDisciplinas();
         assertEquals(1, disciplinas.size());

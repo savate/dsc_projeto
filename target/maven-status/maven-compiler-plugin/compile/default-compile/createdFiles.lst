@@ -1,4 +1,7 @@
+dsc_projeto\projeto\Curso.class
 dsc_projeto\projeto\Disciplina.class
+dsc_projeto\projeto\tipos\TiposCurso.class
+dsc_projeto\projeto\tipos\TiposTitulo.class
 dsc_projeto\projeto\Contato.class
 dsc_projeto\projeto\Professor.class
 dsc_projeto\projeto\TesteJPA.class

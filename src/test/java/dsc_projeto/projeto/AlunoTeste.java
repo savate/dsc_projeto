@@ -17,12 +17,14 @@ public class AlunoTeste extends Teste{
         aluno.setNome("Aluno da Silva");
         aluno.setMatricula("2222x2-1111");
         aluno.setEstado("PE");
-        aluno.setCurso("TADS");
         aluno.setCidade("Recife");
         aluno.setPeriodo("1 Periodo");
         Calendar c = Calendar.getInstance();
         c.set(2002, Calendar.SEPTEMBER, 24, 0, 0, 0);
         aluno.setDataNascimento(c.getTime());
+        
+        Curso curso1 = em.find(Curso.class, 1);
+        aluno.setCurso(curso1);
         
         Contato contato = new Contato();
         contato.setEmail("alunodasilva@gmail.com");
@@ -67,6 +69,9 @@ public class AlunoTeste extends Teste{
         assertEquals(1, disciplinas.size());
         assertEquals("Banco de Dados", disciplinas.iterator().next().getNomeDisciplina());
         assertEquals("Banco de Dados", aluno.getDisciplinaRep().getNomeDisciplina());
+        
+        Curso curso = aluno.getCurso();
+        assertEquals("TADS", curso.getNomeCurso());
         
     }
 }

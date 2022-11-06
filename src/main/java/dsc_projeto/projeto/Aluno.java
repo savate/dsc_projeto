@@ -2,29 +2,24 @@ package dsc_projeto.projeto;
 
 import java.io.Serializable;
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
 
 @Entity
 @Table(name="TB_ALUNO") 
 @DiscriminatorValue(value = "A")
 @PrimaryKeyJoinColumn(name="ID_PESSOA", referencedColumnName = "ID")
 public class Aluno extends Pessoa implements Serializable {
-    @Column(name = "CURSO")
-    private String curso;
     @Column(name = "PERIODO")
     private String periodo;
     @Column (name = "MATRICULA")
@@ -39,16 +34,11 @@ public class Aluno extends Pessoa implements Serializable {
          })
     private Collection<Disciplina> disciplinas;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "ID_DISCIPLINA", referencedColumnName = "ID")
+    @JoinColumn(name = "ID_DISCIPLINA_REPRESENTANTE", referencedColumnName = "ID")
     Disciplina disciplinaRep;
-
-    public String getCurso() {
-        return curso;
-    }
-
-    public void setCurso(String curso) {
-        this.curso = curso;
-    }
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "ID_CURSO", referencedColumnName = "ID")
+    private Curso curso;
 
     public String getPeriodo() {
         return periodo;
@@ -88,6 +78,14 @@ public class Aluno extends Pessoa implements Serializable {
 
     public void setContato(Contato contato) {
         this.contato = contato;
+    }
+    
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
  
 }
