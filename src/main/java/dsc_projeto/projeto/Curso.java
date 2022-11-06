@@ -102,6 +102,6 @@ public class Curso implements Serializable {
 
     @Override
     public String toString() {
-        return "exemplo.jpa.Curso[ id=" + id + " ]";
+        return "exemplo.jpa.Curso[ id=" + id + "; nome=" + this.nomeCurso + "]";
     }
 }

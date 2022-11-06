@@ -72,20 +72,17 @@ public class Aluno extends Pessoa implements Serializable {
         this.disciplinaRep = disciplinaRep;
     }
 
-    public Contato getContato() {
-        return contato;
-    }
-
-    public void setContato(Contato contato) {
-        this.contato = contato;
-    }
-    
     public Curso getCurso() {
         return curso;
     }
-
+    
     public void setCurso(Curso curso) {
         this.curso = curso;
+    }
+    
+    @Override
+    public String toString() {
+        return "exemplo.jpa.Aluno["+ super.toString()  + "]";
     }
  
 }

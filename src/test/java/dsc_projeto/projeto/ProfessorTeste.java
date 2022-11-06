@@ -26,14 +26,10 @@ public class ProfessorTeste extends Teste{
         Contato contato = new Contato();
         contato.setEmail("professordossantos@gmail.com");
         contato.setTelefone("81 7777-8887");
-        contato.setCaixaPostal("10141");
+        contato.setCaixaPostal("Jaboatao01");
         professor.setContato(contato);
         
-        Disciplina disciplina = new Disciplina();
-        disciplina.setNomeDisciplina("Criptografia em sites");
-        disciplina.setPeriodo("5 Periodo");
-        disciplina.setCapacidade(40);
-        disciplina.setProfessor(professor);
+        Disciplina disciplina = em.find(Disciplina.class, 2);
         Collection<Disciplina> disciplinas = new HashSet<>();
         disciplinas.add(disciplina);  
         professor.setDisciplinas(disciplinas);

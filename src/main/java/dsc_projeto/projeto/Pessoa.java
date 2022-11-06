@@ -105,5 +105,14 @@ public abstract class Pessoa implements Serializable {
 
         return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.id);
+        sb.append(", ");
+        sb.append(this.nome);
+        return sb.toString();
+    }
 
 }

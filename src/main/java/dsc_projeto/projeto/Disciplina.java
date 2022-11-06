@@ -125,6 +125,6 @@ public class Disciplina implements Serializable {
 
     @Override
     public String toString() {
-        return "exemplo.jpa.Disciplina[ id=" + id + " ]";
+        return "exemplo.jpa.Disciplina[ id=" + id + "; nome=" + this.nomeDisciplina + "]";
     }
 }

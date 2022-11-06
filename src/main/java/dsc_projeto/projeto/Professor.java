@@ -67,13 +67,8 @@ public class Professor extends Pessoa implements Serializable {
     }
     
     @Override
-    public Contato getContato() {
-        return contato;
+    public String toString() {
+        return "exemplo.jpa.Professor["+ super.toString()  + "]";
     }
-
-    @Override
-    public void setContato(Contato contato) {
-        this.contato = contato;
-    }
-
+    
 }

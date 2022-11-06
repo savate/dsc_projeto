@@ -63,7 +63,7 @@ public class AlunoTeste extends Teste{
         assertNotNull(contato);
         assertEquals("junior@email.com", contato.getEmail());
         assertEquals("1111-1111", contato.getTelefone());
-        assertEquals("Recife01", contato.getCaixaPostal());
+        assertEquals("Recife03", contato.getCaixaPostal());
         
         Collection<Disciplina> disciplinas = aluno.getDisciplinas();
         assertEquals(1, disciplinas.size());
