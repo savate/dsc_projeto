@@ -36,7 +36,7 @@ public class Aluno extends Pessoa implements Serializable {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "ID_DISCIPLINA_REPRESENTANTE", referencedColumnName = "ID")
     Disciplina disciplinaRep;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_CURSO", referencedColumnName = "ID")
     private Curso curso;
 

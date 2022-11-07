@@ -4,6 +4,8 @@
  */
 package dsc_projeto.projeto;
 
+import dsc_projeto.projeto.tipos.TiposCurso;
+import dsc_projeto.projeto.tipos.TiposTitulo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -22,7 +24,7 @@ public class TesteJPA {
     public static void main(String[] args) {
         try {
             Integer id = inserirPessoa();
-            //consultarPessoa(id);
+            consultarPessoa(id);
         } finally {
             emf.close();
         }
@@ -46,7 +48,7 @@ public class TesteJPA {
     
     public static Integer inserirPessoa() {
         Pessoa professor = criarProfessor();
-        Disciplina disciplina = criarDisciplina((Professor) professor);
+        Disciplina disciplina = criarDisciplina((Professor) professor, ((Professor) professor).getCurso());
         Pessoa aluno = criarAluno(disciplina);
         
         EntityManager em = null;
@@ -71,7 +73,7 @@ public class TesteJPA {
             }
         }
         
-        return aluno.getId();
+        return professor.getId();
     }
     
     
@@ -81,7 +83,6 @@ public class TesteJPA {
         aluno.setNome("Juvenaldo");
         aluno.setEstado("PE");
         aluno.setCidade("Recife");
-        //aluno.setCurso("TADS");
         aluno.setPeriodo("3 periodo");
         aluno.setMatricula("20222y3-9999");
         Calendar c = Calendar.getInstance();
@@ -90,13 +91,14 @@ public class TesteJPA {
         c.set(Calendar.DAY_OF_MONTH, 11);
         aluno.setDataNascimento(c.getTime());
         aluno.setDisciplinaRep(disciplina);
+        aluno.setCurso(criarCursosAluno());
         criarContatoAluno(aluno);
         return aluno;
     }
     
     public static Professor criarProfessor() {
         Professor professor = new Professor();
-        //professor.setTitulo("Doutor");
+        professor.setTitulo(TiposTitulo.DOUTOR);
         professor.setNome("Alvaro da Silva");
         professor.setEstado("PE");
         professor.setCidade("Camaragibe");
@@ -106,11 +108,12 @@ public class TesteJPA {
         c.set(Calendar.DAY_OF_MONTH, 21);
         professor.setDataNascimento(c.getTime());
         criarContatoProfessor(professor);
-        Disciplina disciplina = criarDisciplina(professor);
+        Curso cursoProfessor = criarCursosProfessor();
+        Disciplina disciplina = criarDisciplina(professor, cursoProfessor);
         Collection<Disciplina> disciplinas = new HashSet<>();
         disciplinas.add(disciplina);
         professor.setDisciplinas(disciplinas);
-        //criarCursos(professor);
+        professor.setCurso(cursoProfessor);
         return professor;
     }
     
@@ -130,21 +133,27 @@ public class TesteJPA {
         pessoa.setContato(contato); 
     }
     
-    public static Disciplina criarDisciplina(Professor professor) {
+    public static Disciplina criarDisciplina(Professor professor, Curso curso) {
         Disciplina disciplina = new Disciplina();
         disciplina.setNomeDisciplina("Turma Banco de dados I");
-        //disciplina.setCurso("TADS");
         disciplina.setPeriodo("3 Periodo");
         disciplina.setCapacidade(40);
         disciplina.setProfessor(professor);
+        disciplina.setCurso(curso);
         return disciplina;
     }
     
-    /*public static void criarCursos(Professor professor) {
-        Collection<String> cursos = new HashSet<>();
-        cursos.add("TADS - IFPE");
-        cursos.add("Mestre - UFPE");
-        cursos.add("Doutor - MIT");
-        professor.setCursos(cursos);
-    }*/
+    public static Curso criarCursosAluno() {
+        Curso curso = new Curso();
+        curso.setNomeCurso("Ciencia Computação");
+        curso.setTipoCurso(TiposCurso.SUPERIOR);
+        return curso;
+    }
+    
+    public static Curso criarCursosProfessor() {
+        Curso curso = new Curso();
+        curso.setNomeCurso("Engenharia Computação");
+        curso.setTipoCurso(TiposCurso.SUPERIOR);
+        return curso;
+    }
 }

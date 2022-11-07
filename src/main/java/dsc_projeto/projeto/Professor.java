@@ -30,7 +30,7 @@ public class Professor extends Pessoa implements Serializable {
             joinColumns = @JoinColumn(name = "ID_PROFESSOR"))
     @Column(name = "NOME_ESPECIALIZACAO")
     protected Collection<String> especializacoes;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_CURSO", referencedColumnName = "ID")
     private Curso curso;
 
